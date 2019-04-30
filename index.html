@@ -1,0 +1,32 @@
+<html>
+    <h1>An infinite todolist</h1>
+    <input id="new-todo" placeholder="What needs to be done?" autofocus>
+    <div id="todolist"></div>
+    
+    <script id="list" type="x-handlebars-template">
+        {{#each items}}
+        <li {{#if completed}}class="completed"{{/if}} data-id="{{id}}">
+            <input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
+            {{name}}
+            <input class="newsubtodo" placeholder="What needs to be done?">
+            {{#if items}}
+            <ul>
+            {{> list}}
+            </ul>
+            {{/if}}
+        </li>
+        {{/each}}
+    </script>
+    
+    <script id="main" type="x-handlebars-template">
+        <ul>
+        {{> list}}
+        </ul>
+    </script>
+
+
+<script src="jquery.js"></script>
+<script src="app.js"></script>
+<script src="handlebars.js"></script>
+
+</html>
