@@ -1,5 +1,6 @@
 jQuery(function ($){
     var ENTER_KEY=13;
+    var ESCAPE_KEY=27;
 
     var util = {
         uuid: function(){
@@ -30,7 +31,66 @@ jQuery(function ($){
             $('#new-todo').on('keyup', this.create.bind(this));
             $('#todolist').on('keyup', '.newsubtodo', this.createSubItem.bind(this));
             $('#todolist').on('change', '.toggle', this.toggle.bind(this));
+            $('#todolist').on('dblclick', 'label', this.editingMode.bind(this));
+            $('#todolist').on('keyup', '.edit', this.editKeyup.bind(this));
+            $('#todolist').on('focusout', '.edit', this.update.bind(this));
         }, 
+        update: function(e){
+            var el = e.target; 
+            var $el = $(el);
+            var val = $el.val().trim();
+
+            // if (!val){
+            //     this.destroy(e);
+            //     return;
+            // }
+
+            if($el.data('abort')){
+                //focusout event triggered because ESCAPE key was pressed which called blur() and set data('abort') to true
+                console.log("update: function(e) BEFORE: $(e.target).data('abort') is  ", $(e.target).data('abort'));
+                $el.data('abort', false);
+                console.log("update: function(e) AFTER: $(e.target).data('abort') is ", $(e.target).data('abort'));
+            } else {
+                console.log("update: function(e) ELSE: $(e.target).data('abort') is ", $(e.target).data('abort'));
+                //focusout event triggered because ENTER key is pressed or user clicked outside the .edit input field
+                //find the element and update its value
+                for(var i=0; i<this.items.length; i++){
+                    this.recursiveUpdate(this.items[i],$el.closest('li').data('id'),val);
+                }
+            }
+            this.render();
+        },
+        recursiveUpdate: function(item, id, newValue){
+            if(item.id===id){
+                item.name=newValue;
+            } else {
+                for(var i=0; i<item.items.length; i++){
+                    this.recursiveUpdate(item.items[i], id, newValue);
+                }
+            }
+        },
+        editKeyup: function(e){
+            if (e.which === ENTER_KEY){
+                e.target.blur();
+                console.log("e is when ENTER is pressed, ", e);
+                console.log("$(e.target) is when ENTER is pressed ", $(e.target));
+                console.log("$(e.target).data('abort') is ", $(e.target).data('abort'));
+            }
+           
+            if (e.which === ESCAPE_KEY){
+                console.log("ESCAPE key is pressed");
+                console.log("$(e.target).data('abort') is before setting it to true ", $(e.target).data('abort'));
+                $(e.target).data('abort', true).blur();
+                console.log("$(e.target) is when ESCAPE is pressed ", $(e.target));
+                console.log("$(e.target).data('abort') is ", $(e.target).data('abort'));
+            }
+
+        },
+        editingMode: function(e){
+            console.log("editing mode");
+            var $input = $(e.target).closest('li').addClass('editing').find('.edit');
+            $input.focus();  
+        },
         toggle: function(e){
             var $input = $(e.target);
             var id = $input.closest('li').data('id');

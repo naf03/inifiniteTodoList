@@ -1,4 +1,7 @@
 <html>
+    <head>
+        <link rel="stylesheet" href="app.css">
+    </head>
     <h1>An infinite todolist</h1>
     <input id="new-todo" placeholder="What needs to be done?" autofocus>
     <div id="todolist"></div>
@@ -7,8 +10,9 @@
         {{#each items}}
         <li {{#if completed}}class="completed"{{/if}} data-id="{{id}}">
             <input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
-            {{name}}
+            <label>{{name}}</label>
             <input class="newsubtodo" placeholder="What needs to be done?">
+            <input class="edit" value="{{name}}">
             {{#if items}}
             <ul>
             {{> list}}
