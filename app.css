@@ -1,5 +1,14 @@
-#todolist li.editing .edit{
+/* #todolist li.editing .edit{
     display: block;
+    width: 506px;
+	padding: 12px 16px;
+	margin: 0 0 0 43px;
+} */
+#todolist li .edit.editing{
+    display: block;
+    width: 506px;
+	padding: 12px 16px;
+	margin: 0 0 0 43px;
 }
 #todolist li .edit {
     display: none;

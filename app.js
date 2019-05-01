@@ -88,7 +88,13 @@ jQuery(function ($){
         },
         editingMode: function(e){
             console.log("editing mode");
-            var $input = $(e.target).closest('li').addClass('editing').find('.edit');
+            // var $input = $(e.target).closest('li').addClass('editing').children('.edit');
+            var $input = $(e.target).closest('li').children('.edit').addClass('editing');
+
+            console.log("$(e.target).closest('li') is ",$(e.target).closest('li'));
+            console.log("$(e.target).closest('li').addClass('editing') is ",$(e.target).closest('li').addClass('editing'));
+            console.log("$(e.target).closest('li').addClass('editing').find('.edit') is ",$(e.target).closest('li').addClass('editing').find('.edit'));
+
             $input.focus();  
         },
         toggle: function(e){
