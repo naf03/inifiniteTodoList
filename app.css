@@ -1,9 +1,4 @@
-/* #todolist li.editing .edit{
-    display: block;
-    width: 506px;
-	padding: 12px 16px;
-	margin: 0 0 0 43px;
-} */
+
 #todolist li .edit.editing{
     display: block;
     width: 506px;
@@ -13,7 +8,63 @@
 #todolist li .edit {
     display: none;
 }
-#todolist li.completed label {
+/* #todolist li.completed label {
+    color: #d9d9d9;
+    text-decoration: line-through;
+} */
+#todolist li label.completed {
     color: #d9d9d9;
     text-decoration: line-through;
 }
+
+/* #todolist ul {
+    list-style: none;
+} */
+/* #todolist li {
+    position: relative;
+} */
+/* #todolist li .toggle {
+    position: absolute;
+    width: 40px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    appearance: none;
+} */
+
+/* 
+#todolist li label{
+    padding: 15px 60px 15px 15px;
+    margin-left: 45px;
+    display: absolute;
+    top: 0;
+    left: 50px;
+
+} */
+
+/* #todolist li .destroy {
+    display: none;
+    position: absolute;
+    top: 0;
+	right: 10px;
+    bottom: 0;
+    width: 40px;
+    height: 40px;
+    margin: auto 0;
+	font-size: 30px;
+	color: #cc9a9a;
+	margin-bottom: 11px;
+	transition: color 0.2s ease-out;
+} */
+
+/* #todolist li .destroy:hover {
+	color: #af5b5e;
+} */
+
+/* #todolist li .destroy:after {
+    content: 'x';
+} */
+
+/* #todolist li:hover .destroy {
+    display: block;
+} */

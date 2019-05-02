@@ -34,16 +34,36 @@ jQuery(function ($){
             $('#todolist').on('dblclick', 'label', this.editingMode.bind(this));
             $('#todolist').on('keyup', '.edit', this.editKeyup.bind(this));
             $('#todolist').on('focusout', '.edit', this.update.bind(this));
+            $('#todolist').on('click', '.destroy', this.destroy.bind(this));
         }, 
+        destroy: function(e){
+            var el = e.target;
+            var $el = $(el);
+            var id = $el.closest('li').data('id');
+            this.recursiveDestroy(this.items, id);
+            this.render();
+
+        },
+        recursiveDestroy: function(items, id){
+           for(var i=0; i<items.length; i++){
+               if(items[i].id===id){
+                   items.splice(i,1);
+                   return;
+               } else {
+                   this.recursiveDestroy(items[i].items,id);
+               }
+           }
+        },
         update: function(e){
             var el = e.target; 
             var $el = $(el);
             var val = $el.val().trim();
 
-            // if (!val){
-            //     this.destroy(e);
-            //     return;
-            // }
+            if (!val){
+                this.destroy(e);
+                this.render();
+                return;
+            }
 
             if($el.data('abort')){
                 //focusout event triggered because ESCAPE key was pressed which called blur() and set data('abort') to true
@@ -95,6 +115,9 @@ jQuery(function ($){
             console.log("$(e.target).closest('li').addClass('editing') is ",$(e.target).closest('li').addClass('editing'));
             console.log("$(e.target).closest('li').addClass('editing').find('.edit') is ",$(e.target).closest('li').addClass('editing').find('.edit'));
 
+            var tmpStr = $input.val();
+            $input.val('');
+            $input.val(tmpStr);
             $input.focus();  
         },
         toggle: function(e){
