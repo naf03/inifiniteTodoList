@@ -11,8 +11,8 @@
         <li  data-id="{{id}}">
             <input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
             <label {{#if completed}}class="completed"{{/if}}>{{name}}</label>
-            <button class="destroy"></button>
-            <input class="newsubtodo" placeholder="What needs to be done?">
+            <button class="destroy">Delete</button>
+            <input class="newsubtodo" placeholder="What sub task needs to be done?">
             <input class="edit" value="{{name}}">
             {{#if items}}
             <ul>

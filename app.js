@@ -16,15 +16,25 @@ jQuery(function ($){
                 }
 
                 return uuid;
+        }, 
+        store: function(namespace, data){
+            if (arguments.length>1){
+                return localStorage.setItem(namespace, JSON.stringify(data));
+            } else {
+                var store = localStorage.getItem(namespace);
+                return (store && JSON.parse(store)) || [];
+            }
         }
     };
 
     var App = {
         init: function(){
-            this.items = [];
+            this.items = util.store('todos-jqeury');
+            // this.items = [];
             this.template = Handlebars.compile($('#main').html());
             Handlebars.registerPartial("list", $("#list").html());
             this.bindEvents();
+            this.render()
 
         }, 
         bindEvents: function(){
@@ -188,6 +198,7 @@ jQuery(function ($){
             console.log("this.items is ", this.items);
             var html = this.template({items: this.items});
             $("#todolist").html(html);
+            util.store('todos-jqeury', this.items);
         }
     };
 
